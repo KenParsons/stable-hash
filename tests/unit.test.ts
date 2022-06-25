@@ -95,13 +95,91 @@ describe(`Arrays`, () => {
         arrayWithExtraStuff.evenMoreExtraStuff = { nested: "extraStuff" };
         //expect(hash(arrayWithExtraStuff)).not.toEqual(hash([1, 2, 3]))  This fails (yep still kinda contrived 🙃)
 
-        const anotherArrayWithExtraStuff = Object.assign([1,2,3,], {extra:"Stuff"});
+        const anotherArrayWithExtraStuff = Object.assign([1, 2, 3,], { extra: "Stuff" });
         /* expect(hash(anotherArrayWithExtraStuff)).not.toEqual(hash([1,2,3])) 
         Ok maybe I'm just getting silly 😂 but this fails  */
-        
-        const arrayWithEmptyIndices = [1,2];
+
+        const arrayWithEmptyIndices = [1, 2];
         arrayWithEmptyIndices[100] = 3;
-        expect(arrayWithEmptyIndices).not.toEqual([1,2,3]);
+        expect(arrayWithEmptyIndices).not.toEqual([1, 2, 3]);
     })
 })
 
+
+describe(`POJOs`, () => {
+    test(`Empty objects are equal`, () => {
+        expect(hash({})).toEqual(hash({}));
+    });
+    test(`Empty object not equal to empty array`, () => {
+        expect(hash({})).not.toEqual(hash([]));
+    });
+    test(`Objects with simple k:v pairs where v is a primitive`, () => {
+        expect(hash({ hi: "hello" })).toEqual(hash({ hi: "hello" }));
+        expect(hash({ hi: "hello" })).not.toEqual(hash({ bye: "goodbye" }));
+
+        const pretendRecord = {
+            name: "Muffin Man",
+            street: "Drury Ln",
+            crimesCommitted: 13,
+            description: "⚠ USE EXTREME CAUTION WHEN APPROACHING ⚠",
+            currentlyUnderInvestigation: true
+        }
+        expect(hash(pretendRecord)).toEqual(hash({
+            name: "Muffin Man",
+            street: "Drury Ln",
+            crimesCommitted: 13,
+            description: "⚠ USE EXTREME CAUTION WHEN APPROACHING ⚠",
+            currentlyUnderInvestigation: true
+        }))
+
+        expect(hash(pretendRecord)).not.toEqual(hash({
+            name: "Muffin Man",
+            street: "Drury Ln",
+            crimesCommitted: 14,
+            description: "⚠ USE EXTREME CAUTION WHEN APPROACHING ⚠",
+            currentlyUnderInvestigation: true
+        }))
+
+        expect(hash(pretendRecord)).not.toEqual(hash({
+            name: "Muffin Man",
+            street: "Drury Ln",
+            crimesCommitted: 13,
+            currentlyUnderInvestigation: true
+        }))
+    });
+
+    test(`Objects with nested data structures`, () => {
+        expect(hash({ a: { b: { c: {} } } })).toEqual(hash({ a: { b: { c: {} } } }));
+        expect(hash({ a: { b: { c: {} } } })).not.toEqual(hash({ a: { b: { c: { d: {} } } } }));
+        expect(hash({ a: { b: { c: {} } } })).not.toEqual(hash({ a: { b: { c: { d: {} } } } }));
+
+        expect(hash({
+            a: [1, 2, 3],
+            b: {
+                c: [4, 5, 6],
+                d: [{ e: "f" }, { g: "h" }]
+            }
+        })).toEqual(hash({
+            a: [1, 2, 3],
+            b: {
+                c: [4, 5, 6],
+                d: [{ e: "f" }, { g: "h" }]
+            }
+        }))
+
+        expect(hash({
+            a: [1, 2, 3],
+            b: {
+                c: [4, 5, 6],
+                d: [{ e: "f" }, { g: "h" }]
+            }
+        })).not.toEqual(hash({
+            a: [1, 2, 3],
+            b: {
+                c: [4, 5, 6],
+                d: [{ e: "f" }, { i: "j" }]
+            }
+        }))
+    })
+
+})
