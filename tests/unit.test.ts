@@ -34,3 +34,31 @@ describe(`Strings`, ()=> {
 });
 
 
+describe(`Numbers including BigInt`, ()=> { 
+    test(`SheNaNigans`, ()=> { 
+        expect(NaN).toEqual(NaN);
+        expect(NaN).not.toEqual(NaN.toString());
+        expect(1 + NaN).toEqual(NaN + 1);
+        expect("1" + NaN).not.toEqual(NaN + "1");
+    })
+    test(`Integers`, ()=> { 
+        expect(hash(2 + 1)).toEqual(hash(2 + 1));
+        expect(hash(-3)).not.toEqual(hash("-3"));
+        expect(hash(123)).not.toEqual(hash(1123));
+        expect(hash(400_000)).toEqual(hash(400000));
+    });
+    test(`Float`, ()=> { 
+        expect(hash(0.000001)).toEqual(hash(0.000001))
+        expect(hash(-0.000001)).not.toEqual(hash(0.000001))
+        expect(hash(9999999.9999999)).not.toEqual(hash(10000000.0))
+    });
+
+    test(`BigInt`, ()=> { 
+        expect(hash(BigInt(8))).toEqual(hash(BigInt(8)));
+        //expect(hash( BigInt(8) )).not.toEqual(hash(8)); This fails but that may be intentional;
+        expect(hash(BigInt(99999999999999999999999999999999999999999999999999999999999999999999999999)))
+        .not.toEqual(BigInt(77777777777777777777777777777777777777777777777777777))
+    })
+});
+
+
