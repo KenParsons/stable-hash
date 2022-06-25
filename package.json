@@ -17,7 +17,8 @@
   "scripts": {
     "build:mjs": "esbuild src/index.ts --minify --target=es6 --outdir=dist --out-extension:.js=.mjs",
     "build:cjs": "esbuild src/index.ts --minify --target=es6 --outdir=dist --format=cjs",
-    "build": "yarn build:mjs && yarn build:cjs"
+    "build": "yarn build:mjs && yarn build:cjs",
+    "test": "jest"
   },
   "devDependencies": {
     "esbuild": "^0.12.28",
