@@ -97,7 +97,8 @@ describe(`Arrays`, () => {
 
         const anotherArrayWithExtraStuff = Object.assign([1, 2, 3,], { extra: "Stuff" });
         /* expect(hash(anotherArrayWithExtraStuff)).not.toEqual(hash([1,2,3])) 
-        Ok maybe I'm just getting silly 😂 but this fails  */
+        Ok maybe I'm just getting silly 😂 but this fails. All joking aside, any robust way to
+        solve these would probably not be worth the hit to performance because these are very unusual cases */
 
         const arrayWithEmptyIndices = [1, 2];
         arrayWithEmptyIndices[100] = 3;
@@ -150,20 +151,20 @@ describe(`POJOs`, () => {
 
     test(`Objects with nested data structures`, () => {
         expect(hash({ a: { b: { c: {} } } })).toEqual(hash({ a: { b: { c: {} } } }));
-        expect(hash({ a: { b: { c: {} } } })).not.toEqual(hash({ a: { b: { c: { d: {} } } } }));
+        expect(hash({ a: { b: { c: {} } } })).not.toEqual(hash({ a: { b: { z: {} } } }));
         expect(hash({ a: { b: { c: {} } } })).not.toEqual(hash({ a: { b: { c: { d: {} } } } }));
 
         expect(hash({
             a: [1, 2, 3],
             b: {
                 c: [4, 5, 6],
-                d: [{ e: "f" }, { g: "h" }]
+                d: [{ e: 7 }, { g: 8 }]
             }
         })).toEqual(hash({
             a: [1, 2, 3],
             b: {
                 c: [4, 5, 6],
-                d: [{ e: "f" }, { g: "h" }]
+                d: [{ e: 7 }, { g: 8 }]
             }
         }))
 
@@ -171,15 +172,26 @@ describe(`POJOs`, () => {
             a: [1, 2, 3],
             b: {
                 c: [4, 5, 6],
-                d: [{ e: "f" }, { g: "h" }]
+                d: [{ e: 7 }, { g: 8 }]
             }
         })).not.toEqual(hash({
             a: [1, 2, 3],
             b: {
                 c: [4, 5, 6],
-                d: [{ e: "f" }, { i: "j" }]
+                d: [{ e: "f" }, { g: "h" }]
             }
         }))
     })
 
+});
+
+describe(`The Func-y Bunch feat. The Referential Squad `, () => {
+    test(`Functions`, () => {
+        expect(hash(() => { })).not.toEqual(hash(() => { }));
+
+        function emptyFunc() { }
+        function anotherEmptyFunc() { }
+        expect(hash(emptyFunc)).toEqual(hash(emptyFunc));
+        expect(hash(emptyFunc)).not.toEqual(hash(anotherEmptyFunc))
+    })
 })
