@@ -24,11 +24,11 @@ describe(`Strings`, () => {
         expect(hash(" ")).not.toEqual(hash("           "))
     });
     test(`Basic/Common characters `, () => {
-        expect(hash("Check out useSWR (npm i swr) for easy, robust data fetching in React."))
-            .toEqual(hash("Check out useSWR (npm i swr) for easy, robust data fetching in React."))
+          expect(hash("Check out useSWR (npm i swr) for easy, robust data fetching in React."))
+        .toEqual(hash("Check out useSWR (npm i swr) for easy, robust data fetching in React."))
 
-        expect(hash("  af jFJI   F89fj32fajsdjfaszf0_F0j2fa0"))
-            .toEqual(hash("  af jFJI   F89fj32fajsdjfaszf0_F0j2fa0"));
+          expect(hash("  af jFJI   F89fj32fajsdjfaszf0_F0j2fa0"))
+        .toEqual(hash("  af jFJI   F89fj32fajsdjfaszf0_F0j2fa0"));
 
         expect(hash("23ja8!@#xc,m,/?@1mfjaDFJIPMal921m")).not.toEqual("23ja8!@#xc,m,/?@1m");
     });
@@ -36,6 +36,11 @@ describe(`Strings`, () => {
     test(`Unconventional characters`, () => {
 
         expect(hash("u̝̚s̞ͨe͚̦͋ͣr̲̞͋͋ ͕̩̹͌ͯ͆ì̺̜̬̏̽ṇ̞̪͍̎͊̉͆p̼̭͎̆̐̄ͬͅȗ̬͙̗͍̟ͩ̒̃̚t͍͓̻̝̝́̾̄̐̔ś̗̹͇͉̙̟̔ͪ͑͛̐ ̥̞͚͖̪͖̎̾̈͑̆̾c̪̘̬͍̤͚͊̆͑̋̓̔a̙̠̻̬̙ͩ͒ͧ͂̄̊ͅn̞͚̠̩̬ͭ͌͑͑̍ ͍̟̲͍̼ͩ̉͒ͬ̚b̦̞̭̹ͪͦ̍ͦȅ̘̟͇͖̿̉̚ ̯̻̠ͩͥͣw̯̮͙ͫ̾̅i̦͈͛̅l̖̘ͯ͗d͔̈́")).toEqual(hash("u̝̚s̞ͨe͚̦͋ͣr̲̞͋͋ ͕̩̹͌ͯ͆ì̺̜̬̏̽ṇ̞̪͍̎͊̉͆p̼̭͎̆̐̄ͬͅȗ̬͙̗͍̟ͩ̒̃̚t͍͓̻̝̝́̾̄̐̔ś̗̹͇͉̙̟̔ͪ͑͛̐ ̥̞͚͖̪͖̎̾̈͑̆̾c̪̘̬͍̤͚͊̆͑̋̓̔a̙̠̻̬̙ͩ͒ͧ͂̄̊ͅn̞͚̠̩̬ͭ͌͑͑̍ ͍̟̲͍̼ͩ̉͒ͬ̚b̦̞̭̹ͪͦ̍ͦȅ̘̟͇͖̿̉̚ ̯̻̠ͩͥͣw̯̮͙ͫ̾̅i̦͈͛̅l̖̘ͯ͗d͔̈́"));
+
+
+
+        
+        expect(hash("u̝̚s̞ͨe͚̦͋ͣr̲̞͋͋ ͕̩̹͌ͯ͆ì̺̜̬̏̽ṇ̞̪͍̎͊̉͆p̼̭͎̆̐̄ͬͅȗ̬͙̗͍̟ͩ̒̃̚t͍͓̻̝̝́̾̄̐̔ś̗̹͇͉̙̟̔ͪ͑͛̐ ̥̞͚͖̪͖̎̾̈͑̆̾c̪̘̬͍̤͚͊̆͑̋̓̔a̙̠̻̬̙ͩ͒ͧ͂̄̊ͅn̞͚̠̩̬ͭ͌͑͑̍ ͍̟̲͍̼ͩ̉͒ͬ̚b̦̞̭̹ͪͦ̍ͦȅ̘̟͇͖̿̉̚ ̯̻̠ͩͥͣw̯̮͙ͫ̾̅i̦͈͛̅l̖̘ͯ͗d͔̈́")).not.toEqual(hash("u̝̚s̞ͨe͚̦͋ͣr̲̞͋͋ ͕̩̹͌ͯ͆ì̺̜̬̏̽ṇ̞̪͍̎͊̉͆p̼̭͎̆̐̄ͬͅȗ̬͙̗͍̟ͩ̒̃̚t͍͓̻̝̝́̾̄̐̔ś̗̹͇͉̙̟̔ͪ͑͛̐ ̥̞͚͖̪͖̎̾̈͑̆̾c̪̘̬͍̤͚͊̆͑̋̓̔a̙̠̻̬̙ͩ͒ͧ͂̄̊ͅn̞͚̠̩̬ͭ͌͑͑̍ ͍̟̲͍̼ͩ̉͒ͬ̚b̦̞̭̹ͪͦ̍ͦȅ̘̟͇͖̿̉̚"));
 
 
     });
@@ -148,7 +153,9 @@ describe(`POJOs`, () => {
             currentlyUnderInvestigation: true
         }))
     });
-
+    test(`Stringified json not equal to itself in parsed form`, () => {
+        expect(hash({ use: "SWR" })).not.toEqual(JSON.stringify({ use: "SWR" }))
+    })
     test(`Objects with nested data structures`, () => {
         expect(hash({ a: { b: { c: {} } } })).toEqual(hash({ a: { b: { c: {} } } }));
         expect(hash({ a: { b: { c: {} } } })).not.toEqual(hash({ a: { b: { z: {} } } }));
@@ -185,13 +192,58 @@ describe(`POJOs`, () => {
 
 });
 
-describe(`The Func-y Bunch feat. The Referential Squad `, () => {
+describe(`The Func-y Bunch`, () => {
     test(`Functions`, () => {
         expect(hash(() => { })).not.toEqual(hash(() => { }));
 
         function emptyFunc() { }
         function anotherEmptyFunc() { }
         expect(hash(emptyFunc)).toEqual(hash(emptyFunc));
-        expect(hash(emptyFunc)).not.toEqual(hash(anotherEmptyFunc))
+        expect(hash(emptyFunc)).not.toEqual(hash(anotherEmptyFunc));
+
+        function sum(a, b) { return a + b };
+        function alsoSum(a, b) { return a + b }
+        expect(hash(sum)).toEqual(hash(sum));
+        expect(hash(sum)).not.toEqual(hash(alsoSum));
+
+        const functionHolder = { sum }
+        expect(hash(functionHolder.sum)).toEqual(hash(functionHolder.sum))
+        expect(hash(functionHolder)).toEqual(hash(functionHolder))
+    });
+
+    test(`Dates`, () => {
+        const now = new Date();
+        expect(hash(now)).toEqual(hash(now));
+
+        const actualDateObject = new Date("2022-06-25T01:55:27.743Z");
+        const dateString =                "2022-06-25T01:55:27.743Z";
+        expect(hash(actualDateObject)).not.toEqual(hash(dateString));
+        expect(hash(now)).not.toEqual(hash(actualDateObject))
+    });
+
+    test(`Symbols`, () => {
+        const test = Symbol("test");
+        expect(hash(test)).not.toEqual(hash("test"));
+        expect(hash(test)).not.toEqual(hash(Symbol()));
+        expect(test).not.toEqual(hash(test))
+        expect(hash(test)).toEqual(hash(test));
+    })
+
+    test(`Proxies`, () => {
+        const originalObject = {key:"value"};
+        const noOpProxy = new Proxy(originalObject,{});
+        expect(hash(noOpProxy)).toEqual(hash(originalObject));
+        expect(hash(noOpProxy)).toEqual(hash(noOpProxy));
+
+        const anotherNoOpProxy = new Proxy(originalObject,{});
+        expect(hash(anotherNoOpProxy)).toEqual(hash(noOpProxy));
+        
+        const rejectionProxy = new Proxy(originalObject, { 
+            get() { 
+                return "nope"
+            }
+        });
+        expect(hash(rejectionProxy)).not.toEqual(hash(originalObject));
+        expect(hash(rejectionProxy)).toEqual(hash(rejectionProxy));
     })
 })
